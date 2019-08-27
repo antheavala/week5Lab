@@ -1,0 +1,29 @@
+<html> 
+    <head>
+         <link rel="stylesheet" href="styles.css">
+         <style>
+                table,th,td {
+                    border: 1px solid black;
+                }
+            </style>
+    </head>
+
+    <h1> 
+        <a href="/"> Home </a> &nbsp;
+        <a href="/addNewTask">Add New Task </a>
+    </h1></br></br>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Due Date</th>
+            <th>Description</th>
+        </tr>
+        <% for(var i=0; i<data.length; i++){%>
+            <tr>
+                <td><%= data[i].taskName %></td>
+                <td><%= data[i].taskDue %></td>
+                <td><%= data[i].taskDesc %></td>
+            </tr>
+        <% } %>
+    </table>
+</html>
