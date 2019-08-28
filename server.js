@@ -26,6 +26,10 @@ app.post('/taskAdded', function(req,res){
     res.sendFile(__dirname + '/post.html');
 });
 
+app.get("/yeet", function (req,res){
+
+});
+
 app.get('/listAllTasks', function(req,res){
     res.render('listTasks.html', {data: db});
 });
