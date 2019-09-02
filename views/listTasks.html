@@ -10,18 +10,25 @@
 
     <h1> 
         <a href="/"> Home </a> &nbsp;
-        <a href="/addNewTask">Add New Task </a>
+        <a href="/addNewTask">Add New Task </a> &nbsp;
+        <a href="/updateTask">Update Task Status </a>&nbsp;
+        <a href="/deleteTask">Delete Task </a>&nbsp;
+        <a href="/deleteCompleted">Delete Completed Tasks </a>
     </h1></br></br>
     <table>
         <tr>
             <th>Name</th>
+            <th>Assigned to</th>
             <th>Due Date</th>
+            <th>Status</th>
             <th>Description</th>
         </tr>
         <% for(var i=0; i<data.length; i++){%>
             <tr>
                 <td><%= data[i].taskName %></td>
+                <td><%= data[i].taskAssign %></td>
                 <td><%= data[i].taskDue %></td>
+                <td><%= data[i].taskStatus %></td>
                 <td><%= data[i].taskDesc %></td>
             </tr>
         <% } %>
