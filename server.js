@@ -25,6 +25,7 @@ app.set('view engine', 'html');
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
 app.use(express.static('images'));
 app.use(express.static('css'));
 
@@ -42,6 +43,14 @@ app.get('/deleteTask', function(req, res){
     res.sendFile(viewsPath + '/deleteTask.html')
 });
 
+app.get('/updateTask', function(req, res){
+    res.sendFile(viewsPath + '/updateTask.html')
+});
+
+app.get('/deleteByDate', function(req,res){
+    res.sendFile(viewsPath + '/dateDelete.html');
+});
+
 app.get('/deleteCompleted', function(req, res){
     db.collection('tasks').deleteMany({taskStatus : "Complete"}, function(err, obj){
         res.redirect('/listAllTasks');
@@ -54,20 +63,16 @@ app.get('/listAllTasks', function(req,res){
       });
 });
 
-app.get('/updateTask', function(req, res){
-    res.sendFile(viewsPath + '/updateTask.html')
-});
-
 //POST REQUESTS
 
 app.post('/taskAdded', function(req,res){
-    db.collection('tasks').insertOne(req.body);
+    db.collection('tasks').insertOne({taskName : req.body.taskName, taskAssign : req.body.taskAssign, taskDue : new Date (req.body.taskDue), taskStatus : req.body.taskStatus, taskDesc : req.body.taskDesc});
     res.redirect('/listAllTasks');
 });
 
 app.post('/taskDeleted', function(req,res){
     let taskDetails = req.body;
-    let filter = { _id : new mongodb.ObjectId(taskDetails.taskID)}
+    let filter = { _id : new mongodb.ObjectId(taskDetails.taskID)};
     db.collection('tasks').deleteOne(filter);
     res.redirect('/listAllTasks');
 });
@@ -77,6 +82,18 @@ app.post('/updatedTask', function (req,res) {
     db.collection('tasks').updateOne({_id : newID}, {$set: {taskStatus : req.body.taskStatus}}, {upsert:false}, function(err,result){
         res.redirect('/listAllTasks');
     });
+});
+
+app.post('/deleteDate', function(req, res){
+    console.log(req.body.taskDue);
+    let dueDate = new Date(req.body.taskDue);
+    console.log(req.body.taskDue);
+
+    let query = {taskDue : {$lte: dueDate}};
+    db.collection('tasks').deleteMany(query), (function (err, obj){
+        
+    });
+    res.redirect('/listAllTasks');
 });
 
 app.listen(8080);

@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    
+    <h1>
+        <a href="/"> Home </a> &nbsp;
+        <a href="/listAllTasks">List All Tasks </a>&nbsp;
+        <a href="/updateTask">Update Task Status </a>&nbsp;
+        <a href="/deleteTask">Delete Task </a>&nbsp;
+        <a href="/deleteCompleted">Delete Completed Tasks </a></br></br>
+        Delete all tasks older than:</br></br>
+        <form action="/deleteDate" method="POST">       
+            Task Due Date:
+            <input type="date" name="taskDue" /> </br></br>
+            <button>Submit</button>
+        </form>
+    </h1>
+</html>
